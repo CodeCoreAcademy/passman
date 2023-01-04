@@ -1,0 +1,24 @@
+{
+  "users":[
+    {
+      "id":1,
+      "username":"admin",
+      "pass":"admin"
+    }
+  ],
+
+  "info":[
+    {
+      "id":1,
+      "appname":"Facebook",
+      "pass":"tuharlehngamewifi",
+      "uid":1
+    },
+    {
+      "id":2,
+      "appname":"Twitter",
+      "pass":"kamariyakorelopalop",
+      "uid":1
+    }
+  ]
+}
