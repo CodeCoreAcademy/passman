@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import TextField from '@mui/material/TextField';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
@@ -12,23 +12,35 @@ import { Box } from '@mui/system';
 import { Button } from '@mui/material';
 import ResponsiveAppBar from './Components/Appbar';
 import './style.css';
+import axios from 'axios';
 
 export default function App() {
-    const [data, setData] = useState([
-        // createData('Facebook', 'mysexygirlfriend', dataDel),
-        // createData('Facebook', 'mysexygirlfriend', dataDel),
-        // createData('Facebook', 'mysexygirlfriend', dataDel),
-        {
-            name:'Facebook',
-            pass:'234234234',
-        }
-    ])
+    // const [data, setData] = useState([
+    //     // createData('Facebook', 'mysexygirlfriend', dataDel),
+    //     // createData('Facebook', 'mysexygirlfriend', dataDel),
+    //     // createData('Facebook', 'mysexygirlfriend', dataDel),
+    //     {
+    //         name:'Facebook',
+    //         pass:'234234234',
+    //     }
+    // ])
+    const [data, setData] = useState([]) 
     const [name, setName] = useState('')
     const [pass, setPass] = useState('')
     const save = ()=>{
         // console.log(name, pass)
         setData((prev)=>[...prev, {name:name, pass:pass}])
     }
+
+    useEffect(()=>{
+      console.log("useEffect called")
+      axios.get("http://localhost:8080/info")
+      .then((res)=>{
+        // console.log(res.data)
+        setData(res.data)
+      })
+      .catch((error)=>{console.log(error)})
+    },[])
   return (
     <div>
       <ResponsiveAppBar />
@@ -93,7 +105,7 @@ function CustomizedTables(props) {
             {props.data.map((row, ind) => (
               <StyledTableRow key={ind}>
                 <StyledTableCell component="th" scope="row">
-                  {row.name}
+                  {row.appname}
                 </StyledTableCell>
                 <StyledTableCell align="right">{row.pass}</StyledTableCell>
                 <StyledTableCell align="right">
