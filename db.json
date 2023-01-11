@@ -1,24 +1,29 @@
 {
-  "users":[
+  "users": [
     {
-      "id":1,
-      "username":"admin",
-      "pass":"admin"
+      "id": 1,
+      "username": "admin",
+      "pass": "admin"
     }
   ],
-
-  "info":[
+  "info": [
     {
-      "id":1,
-      "appname":"Facebook",
-      "pass":"tuharlehngamewifi",
-      "uid":1
+      "id": 1,
+      "appname": "Facebook",
+      "pass": "tuharlehngamewifi",
+      "uid": 1
     },
     {
-      "id":2,
-      "appname":"Twitter",
-      "pass":"kamariyakorelopalop",
-      "uid":1
+      "id": 2,
+      "appname": "Twitter",
+      "pass": "kamariyakorelopalop",
+      "uid": 1
+    },
+    {
+      "uid": 1,
+      "appname": "testapp",
+      "pass": "testapppassword",
+      "id": 4
     }
   ]
 }

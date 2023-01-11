@@ -28,19 +28,36 @@ export default function App() {
     const [name, setName] = useState('')
     const [pass, setPass] = useState('')
     const save = ()=>{
-        // console.log(name, pass)
-        setData((prev)=>[...prev, {name:name, pass:pass}])
+      let data = {
+        uid:1,
+        appname:name,
+        pass:pass
+      }
+
+      axios.post("http://localhost:8080/info", data)
+      .then(function (response) {
+        // console.log(response);
+        if(response.status == 201)
+          setData(prev=>[...prev, response.data])
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+        // console.log(data)
+        // setData((prev)=>[...prev, {name:name, pass:pass}])
     }
 
     useEffect(()=>{
       console.log("useEffect called")
       axios.get("http://localhost:8080/info")
       .then((res)=>{
-        // console.log(res.data)
+        console.log(res)
         setData(res.data)
       })
       .catch((error)=>{console.log(error)})
     },[])
+
   return (
     <div>
       <ResponsiveAppBar />
@@ -86,9 +103,22 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
   
 function CustomizedTables(props) {
-    function dataDel(ind){
-        // console.log(props.data[ind])
-        props.setData(prev=>[...prev.slice(0, ind), ...prev.slice(ind+1)])
+    function dataDel(id){
+        // console.log(id)
+        // props.setData(prev=>[...prev.slice(0, ind), ...prev.slice(ind+1)])
+        axios.delete("http://localhost:8080/info/"+id)
+        .then(function(response){
+          // console.log(response)
+          if(response.status == 200)
+          {
+            props.setData(prev=>prev.filter((ele)=>ele.id!=id))
+            // console.info("Suceccfully deleted")
+            alert("Suceccfully deleted")
+          }
+        })
+        .catch(function(error){
+          console.log(error)
+        })
     }
     return (
       <TableContainer component={Paper}>
@@ -109,7 +139,7 @@ function CustomizedTables(props) {
                 </StyledTableCell>
                 <StyledTableCell align="right">{row.pass}</StyledTableCell>
                 <StyledTableCell align="right">
-                    <Button onClick={()=>dataDel(ind)}>Delete</Button>
+                    <Button onClick={()=>dataDel(row.id)}>Delete</Button>
                 </StyledTableCell>
               </StyledTableRow>
             ))}
